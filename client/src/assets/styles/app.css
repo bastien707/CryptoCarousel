@@ -71,6 +71,7 @@ h1 {
 
 #contentS2 {
     display: flex;
+    flex-flow: row wrap;
     min-height: 100vh;
     background-image: linear-gradient(135deg, #ff25e2 0%, #5010e6);
 }
