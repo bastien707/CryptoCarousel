@@ -18,9 +18,45 @@
       <button class="start-button">Start now</button>
     </a>
   </section>
-  <section id="contentS2"></section>
-  <router-view />
+  <section id="contentS2">
+    <CryptoCard :price="BTC" name="Bitcoin" />
+    <CryptoCard :price="ETH" name="Ethereum"/>
+    <CryptoCard />
+    <CryptoCard />
+  </section>
 </template>
+
+<script>
+import CryptoCard from '@/components/CryptoCard.vue';
+
+export default {
+  name: 'App',
+  components: {
+    CryptoCard,
+  },
+
+  data() {
+    return {
+      BTC: null,
+      ETH: null,
+    };
+  },
+  mounted() {
+    const connectionBTC = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin');
+    let parsedResponseBTC = null;
+    connectionBTC.onmessage = (eventBTC) => {
+      parsedResponseBTC = JSON.parse(eventBTC.data);
+      this.BTC = parsedResponseBTC.bitcoin;
+    };
+    const connectionETH = new WebSocket('wss://ws.coincap.io/prices?assets=ethereum');
+    let parsedResponseETH = null;
+    connectionETH.onmessage = (eventETH) => {
+      parsedResponseETH = JSON.parse(eventETH.data);
+      this.ETH = parsedResponseETH.ethereum;
+    };
+  },
+};
+</script>
 
 <style>
 @import "@/assets/styles/app.css";
