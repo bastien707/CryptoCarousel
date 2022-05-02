@@ -26,17 +26,20 @@
       <CryptoCard />
     </div>
   </section>
+  <FooterView />
 </template>
 
 <script>
 import CryptoCard from '@/components/CryptoCard.vue';
 import TopNav from '@/components/TopNav.vue';
+import FooterView from '@/components/FooterView.vue';
 
 export default {
   name: 'HomePage',
   components: {
     CryptoCard,
     TopNav,
+    FooterView,
   },
 
   data() {

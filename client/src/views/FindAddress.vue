@@ -3,15 +3,18 @@
     <div class="content">
         <h1>Browse through the Blockchain</h1>
     </div>
+    <FooterView />
 </template>
 
 <script>
 import TopNav from '@/components/TopNav.vue';
+import FooterView from '@/components/FooterView.vue';
 
 export default {
   name: 'FindAddress',
   components: {
     TopNav,
+    FooterView,
   },
 };
 
