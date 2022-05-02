@@ -1,7 +1,7 @@
 <template>
   <TopNav />
   <section id="contentS1">
-    <h1 class="gradient-text">
+    <h1 class="CS1Title">
       <span>Welcome to</span>
       <span class="highlight"> CryptoCarousel </span>
       <span>a place to find more on the </span>
