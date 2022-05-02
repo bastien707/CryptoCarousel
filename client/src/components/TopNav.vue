@@ -46,17 +46,12 @@ a {
   color: rgb(0, 0, 0);
   width: 8em;
   height: 2.5em;
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-a:hover {
-  transition: 0.5s;
-  border-color: black;
+  border-radius: 15px;
 }
 
 a.router-link-exact-active {
-  border-color: black;
+  background-image: linear-gradient(135deg, #ff25e2 0%, #5010e6 100%);
+  box-shadow: 0 10px 20px -10px #cd33f3;
+  color: white;
 }
 </style>
