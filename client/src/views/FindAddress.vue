@@ -2,6 +2,7 @@
     <TopNav />
     <div class="content">
         <h1>Browse through the Blockchain</h1>
+        <PostAddress />
     </div>
     <FooterView />
 </template>
@@ -9,12 +10,14 @@
 <script>
 import TopNav from '@/components/TopNav.vue';
 import FooterView from '@/components/FooterView.vue';
+import PostAddress from '@/components/PostAddress.vue';
 
 export default {
   name: 'FindAddress',
   components: {
     TopNav,
     FooterView,
+    PostAddress,
   },
 };
 
