@@ -20,7 +20,7 @@ body {
     min-height: 80vh;
 }
 
-h1 {
+.CS1Title, .CS2Title {
     font-size: 56px;
     max-width: 550px;
     margin: auto;
