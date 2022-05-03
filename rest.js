@@ -3,12 +3,10 @@ dotenv.config()
 
 const express = require('express');
 const app = express()
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT_REST || 3000;
 
 const pg_updater = require('./db/update_pg')
 const pg_creater = require('./db/create_pg')
-
 const dev_ws = require('./modules/query')
 
 pg_updater.update_assets_price()
@@ -21,7 +19,7 @@ setInterval(async () => {
 
 app.get('/', (req, res) => {
     // main menu containing the most relevant informations about the actual state of the blockchain
-    res.send()
+    res.send("hello")
 })
 
 app.get('/card/:crypto', (req, res) => {
@@ -36,5 +34,5 @@ app.get('/dev/:val', (req, res) =>{
 
 // go to localhost:3000
 app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+    console.log(`Listening on port ${port} - REST`)
 })
