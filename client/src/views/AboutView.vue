@@ -1,5 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <TopNav />
+    <h1>About</h1>
+    <FooterView />
 </template>
+
+<script>
+import TopNav from '@/components/TopNav.vue';
+import FooterView from '@/components/FooterView.vue';
+
+export default {
+  name: 'AboutView',
+  components: {
+    TopNav,
+    FooterView,
+  },
+};
+
+</script>
