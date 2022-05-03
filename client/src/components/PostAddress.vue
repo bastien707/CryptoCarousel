@@ -6,20 +6,27 @@
                 <input
                     id="addressInput"
                     type="text"
-                    name="address">
+                    name="address"
+                    placeholder="e.g 0xb1q0...">
             </label>
-            <div v-if="wait" class="result">
+            <div v-if="wait === 'true'" class="result">
               <button type="submit" class="nonclick">Wait...😘</button>
               <div class='wait'>
-                <span>Address:</span>
-                <span>Price:</span>
+                <ContentLoading isCard='false'/>
               </div>
             </div>
-            <div v-else class="result">
+            <div v-else-if="address !== ''" class="result">
               <button type="submit" class="click">Search 🤑</button>
               <div class='done'>
                 <span>Address: {{address}}</span>
-                <span>Price: {{balance}} ETH</span>
+                <br>
+                <span>Balance: {{balance}} ETH</span>
+              </div>
+            </div>
+            <div v-else>
+              <button type="submit" class="click">Search 🤑</button>
+              <div class='done'>
+                <span>Please enter an address</span>
               </div>
             </div>
         </form>
@@ -28,6 +35,7 @@
 
 <script>
 import axios from 'axios';
+import ContentLoading from '@/components/ContentLoading.vue';
 
 const APIToken = process.env.APIKEY;
 let requestURLCheckToken = '';
@@ -38,12 +46,17 @@ export default {
     return {
       address: '',
       balance: '',
-      wait: false,
+      usd: '',
+      wait: 'false',
     };
   },
+  components: {
+    ContentLoading,
+  },
+
   methods: {
     getFormValues(submitEvent) {
-      this.wait = true;
+      this.wait = 'true';
       this.address = submitEvent.target.elements.address.value;
       requestURLCheckToken = `https://api.etherscan.io/api?module=account&action=balance&address=${this.address}&tag=latest&apikey=${APIToken}`;
       axios
@@ -51,8 +64,9 @@ export default {
         .then((response) => {
           this.balance = Math.trunc(response.data.result / 10 ** 18);
         });
+      // needed beacause limited by apikey
       setTimeout(() => {
-        this.wait = false;
+        this.wait = 'false';
       }, 5000);
     },
   },
@@ -63,13 +77,17 @@ export default {
   .container {
     display: flex;
     justify-content: center;
-    background-color: rgb(228, 203, 255);
     border-radius: 1.5em;
     padding: 3em;
     margin:3em auto;
     width: 50%;
     text-align: center;
     align-content: center;
+    box-shadow: 10px 10px 10px -10px #8b8b8b;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6.5px );-webkit-backdrop-filter: blur( 6.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.25 );
   }
 
   .form {
@@ -77,7 +95,6 @@ export default {
     flex-flow: column wrap;
     justify-content: center;
     align-content: center;
-    background-color: aqua;
     width: 80%;
   }
 
@@ -86,6 +103,17 @@ export default {
     flex-flow: column wrap;
     width: 65%;
     margin: auto;
+    font-weight: 800;
+    font-size: 2em;
+    color: white;
+  }
+
+  #addressInput {
+    width: 60%;
+    margin: 1em auto;
+    border-style: none;
+    padding: 0.8em;
+    border-radius: 12px;
   }
 
   .result {
@@ -96,15 +124,32 @@ export default {
   }
 
   .wait, .done {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: column wrap;
     background-color: white;
     border-radius: 1.5em;
     height: 10em;
+    margin: 2em;
     margin-inline: 10%;
   }
 
+  span {
+    margin: 2%;
+  }
+
   .nonclick, .click {
-    width: 20%;
+    cursor: pointer;
+    font-size: 1em;
+    width: 10em;
+    padding: 1em;
+    border-radius: 0.8em;
     margin: 1em auto;
+    border-style: none;
+    background-image: linear-gradient(270deg, #ff25e2 0%, #5010e6 100%);
+    box-shadow: 0 10px 20px -10px #cd33f3;
+    color: white;
   }
 
   .nonclick {
