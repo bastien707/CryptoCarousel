@@ -2,7 +2,7 @@
   <div class='card-container'>
     <div class='card-data-loading' v-if="loading === true">
       <div >
-        <ContentLoading />
+        <ContentLoading isCard='true'/>
       </div>
     </div>
     <div class='card-data' v-else>
