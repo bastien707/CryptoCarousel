@@ -36,6 +36,8 @@ body {
     align-content: center;
     justify-content: center;
     flex-flow: column wrap;
+    background-image: url('@/assets/img/gradienta-7E5kq_sW0Ew-unsplash.jpg');
+    background-position: left;
     min-height: 40vh;
 }
 
@@ -49,6 +51,7 @@ span {
 }
 
 h1 {
+    color: white;
     text-align: center;
     font-size: 56px;
     max-width: 8em;
