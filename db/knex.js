@@ -8,6 +8,7 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    pool: {min: 0, max: 18}
   }
 };
