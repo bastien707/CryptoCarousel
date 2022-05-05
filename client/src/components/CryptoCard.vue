@@ -93,7 +93,8 @@ export default {
 
     .card-container:hover {
       transition: 200ms;
-      scale: 1.05;
+      /** fix animation on safari and chrome using webkit */
+      -webkit-transform: scale(1.05);
       box-shadow: 0 0px 20px 5px #363636;
     }
 </style>
