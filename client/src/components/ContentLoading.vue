@@ -1,12 +1,13 @@
 <template>
     <ContentLoader
       v-if="isCard === 'true'"
-      viewBox="0 0 450 400"
+      height= '350'
+      width= '300 '
     >
-      <rect x="125" y="40" rx="4" ry="4" width="200" height="20" />
-      <rect x="30" y="304" rx="4" ry="4" width="270" height="10" />
-      <rect x="30" y="323" rx="3" ry="3" width="119" height="6" />
-      <rect x="30" y="77" rx="15" ry="15" width="388" height="217" />
+      <rect x="75" y="40" rx="4" ry="4" width="150" height="20" />
+      <rect x="75" y="304" rx="4" ry="4" width="150" height="10" />
+      <rect x="85" y="323" rx="3" ry="3" width="130" height="6" />
+      <rect x="10" y="77" rx="15" ry="15" width="280" height="200" />
     </ContentLoader>
     <ContentLoader
       viewBox="0 0 340 80"
