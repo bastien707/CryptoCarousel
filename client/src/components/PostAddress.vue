@@ -18,15 +18,22 @@
             <div v-else-if="address !== ''" class="result">
               <button type="submit" class="click">Search 🤑</button>
               <div class='done'>
-                <span>Address: {{address}}</span>
-                <br>
-                <span>Balance: {{balance}} ETH</span>
+                <span>
+                  <strong>Address</strong>
+                  <br>
+                  {{address}}
+                </span>
+                <span>
+                  <strong>Balance</strong>
+                  <br>
+                  {{balance}} ETH
+                </span>
               </div>
             </div>
-            <div v-else>
+            <div v-else class="result">
               <button type="submit" class="click">Search 🤑</button>
               <div class='done'>
-                <span>Please enter an address</span>
+                <strong style="color: grey">Please enter an address</strong>
               </div>
             </div>
         </form>
@@ -75,6 +82,7 @@ export default {
 
 <style scoped>
   .container {
+    overflow: hidden;
     display: flex;
     justify-content: center;
     border-radius: 1.5em;
@@ -109,7 +117,7 @@ export default {
   }
 
   #addressInput {
-    width: 60%;
+    width: 90%;
     margin: 1em auto;
     border-style: none;
     padding: 0.8em;
@@ -118,6 +126,8 @@ export default {
 
   .result {
     display: flex;
+    align-content: center;
+    justify-content: center;
     flex-flow: column wrap;
     width: 100%;
     margin: 0% 5%;
@@ -131,8 +141,8 @@ export default {
     background-color: white;
     border-radius: 1.5em;
     height: 10em;
-    margin: 2em;
-    margin-inline: 10%;
+    width: 30em;
+    margin: 2% 10%;
   }
 
   span {
@@ -142,7 +152,8 @@ export default {
   .nonclick, .click {
     cursor: pointer;
     font-size: 1em;
-    width: 10em;
+    width: 30%;
+    margin: 1em auto;
     padding: 1em;
     border-radius: 0.8em;
     margin: 1em auto;

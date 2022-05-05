@@ -15,15 +15,61 @@
   </section>
   <section id="contentS2" ref="S2">
     <h1 class=CS2Title>Today's Cryptocurrency Prices</h1>
+    {{data.price}}
     <div class=card-container>
-      <CryptoCard :price="price[0].BTC" name="Bitcoin" :loading="loadingAPI[0].BTC"/>
-      <CryptoCard :price="price[1].ETH" name="Ethereum" :loading="loadingAPI[1].ETH"/>
-      <CryptoCard :price="price[2].MON" name="Monero" :loading="loadingAPI[2].MON"/>
-      <CryptoCard />
-      <CryptoCard />
-      <CryptoCard />
-      <CryptoCard />
-      <CryptoCard />
+      <CryptoCard :price="data[0].price"
+                  :rank="data[0].rank"
+                  :marketCap="data[0].marketCap"
+                  :supply="data[0].supply"
+                  :symbol="data[0].symbol"
+                  :volumeusd24h="data[0].volumeusd24h"
+                  :name="data[0].id"
+                  :loading= "loadingAPI"/>
+
+      <CryptoCard :price="data[1].price"
+                  :name="data[1].id"
+                  :rank="data[1].rank"
+                  :marketCap="data[1].marketCap"
+                  :supply="data[1].supply"
+                  :symbol="data[1].symbol"
+                  :volumeusd24h="data[1].volumeusd24h"
+                  :loading= "loadingAPI"/>
+
+      <CryptoCard :price="data[2].price"
+                  :name="data[2].id"
+                  :rank="data[2].rank"
+                  :marketCap="data[2].marketCap"
+                  :supply="data[2].supply"
+                  :symbol="data[2].symbol"
+                  :volumeusd24h="data[2].volumeusd24h"
+                  :loading= "loadingAPI"/>
+
+      <CryptoCard :price="data[3].price"
+                  :name="data[3].id"
+                  :rank="data[3].rank"
+                  :marketCap="data[3].marketCap"
+                  :supply="data[3].supply"
+                  :symbol="data[3].symbol"
+                  :volumeusd24h="data[3].volumeusd24h"
+                  :loading= "loadingAPI"/>
+
+      <CryptoCard :price="data[4].price"
+                  :name="data[4].id"
+                  :rank="data[4].rank"
+                  :marketCap="data[4].marketCap"
+                  :supply="data[4].supply"
+                  :symbol="data[4].symbol"
+                  :volumeusd24h="data[4].volumeusd24h"
+                  :loading= "loadingAPI"/>
+
+      <CryptoCard :price="data[5].price"
+                  :name="data[5].id"
+                  :rank="data[5].rank"
+                  :marketCap="data[5].marketCap"
+                  :supply="data[5].supply"
+                  :symbol="data[5].symbol"
+                  :volumeusd24h="data[5].volumeusd24h"
+                  :loading= "loadingAPI"/>
     </div>
   </section>
   <FooterView />
@@ -33,8 +79,10 @@
 import CryptoCard from '@/components/CryptoCard.vue';
 import TopNav from '@/components/TopNav.vue';
 import FooterView from '@/components/FooterView.vue';
+import json from '@/data.json';
 
 export default {
+
   name: 'HomePage',
   components: {
     CryptoCard,
@@ -44,44 +92,27 @@ export default {
 
   data() {
     return {
-      loadingAPI: [{ BTC: true }, { ETH: true }, { MON: true }],
-      price: [{ BTC: null }, { ETH: null }, { MON: true }],
+      loadingAPI: true,
+      data: json,
     };
   },
   mounted() {
-    const connectionBTC = new WebSocket('wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero');
+    const connectionBTC = new WebSocket('ws://82.64.134.56:3988/ws?assets=bitcoin,ethereum,solana,vechain,solana,dogecoin,uniswap');
     let parsedResponse = null;
-    const temp = [{ BTC: null }, { ETH: null }, { MON: null }];
+    connectionBTC.onopen = () => {
+      connectionBTC.send('start');
+    };
     connectionBTC.onmessage = (event) => {
+      this.loadingAPI = false;
       parsedResponse = JSON.parse(event.data);
-      this.price[0].BTC = parsedResponse.bitcoin;
-      if (typeof this.price[0].BTC === 'string') {
-        temp[0].BTC = this.price[0].BTC;
-      } else if (temp[0].BTC === null) {
-        this.loadingAPI[0].BTC = true;
-      } else {
-        this.price[0].BTC = temp[0].BTC;
-        this.loadingAPI[0].BTC = false;
-      }
-
-      this.price[1].ETH = parsedResponse.ethereum;
-      if (typeof this.price[1].ETH === 'string') {
-        temp[1].ETH = this.price[1].ETH;
-      } else if (temp[1].ETH === null) {
-        this.loadingAPI[1].ETH = true;
-      } else {
-        this.price[1].ETH = temp[1].ETH;
-        this.loadingAPI[1].ETH = false;
-      }
-
-      this.price[2].MON = parsedResponse.monero;
-      if (typeof this.price[2].MON === 'string') {
-        temp[2].MON = this.price[2].MON;
-      } else if (temp[2].MON === null) {
-        this.loadingAPI[2].MON = true;
-      } else {
-        this.price[2].MON = temp[2].MON;
-        this.loadingAPI[2].MON = false;
+      for (let i = 0; i < parsedResponse.length; i += 1) {
+        this.data[i].id = parsedResponse[i].id;
+        this.data[i].price = Math.round(parsedResponse[i].priceusd * 100) / 100;
+        this.data[i].rank = Math.trunc(parsedResponse[i].rank);
+        this.data[i].marketCap = this.addSpaces(Math.trunc(parsedResponse[i].marketcapusd));
+        this.data[i].supply = this.addSpaces(Math.trunc(parsedResponse[i].supply));
+        this.data[i].symbol = parsedResponse[i].symbol;
+        this.data[i].volumeusd24h = this.addSpaces(Math.trunc(parsedResponse[i].volumeusd24h));
       }
     };
   },
@@ -91,6 +122,9 @@ export default {
       const element = this.$refs[refName];
       const top = element.offsetTop;
       window.scrollTo(0, top);
+    },
+    addSpaces(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     },
   },
 };
