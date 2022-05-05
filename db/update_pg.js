@@ -3,7 +3,7 @@ dotenv.config()
 
 const fetch = require('node-fetch')
 
-const knexParams = require('./knex')
+const knexParams = require('./knexfile')
 const knex = require('knex')(knexParams[process.env.NODE_ENV])
 
 const WebSocket = require('ws')

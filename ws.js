@@ -5,7 +5,7 @@ const express = require('express')
 const expressWs = require('express-ws')
 const http = require('http')
 const WebSocket = require('ws')
-const knexParams = require('./db/knex')
+const knexParams = require('./db/knexfile')
 
 const knex = require('knex')(knexParams[process.env.NODE_ENV])
 const app = express()

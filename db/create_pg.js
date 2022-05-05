@@ -1,7 +1,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-const knexParams = require('./knex')
+const knexParams = require('./knexfile')
 const knex = require('knex')(knexParams[process.env.NODE_ENV])
 
 async function create_assets() {
