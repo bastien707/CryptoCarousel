@@ -1,6 +1,6 @@
 # CryptoCarousel
-### Get on our website just by clicking [here](https://crypto-carousel.com).
-<br>
+
+A website to find more about the blockchain and cryptocurrencies 🤩
 
 # Client side
 
